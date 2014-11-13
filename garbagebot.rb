@@ -20,4 +20,8 @@ end
 
 client.access_token = FACEBOOK_ACCESS_TOKEN
 uid = client.me['id']
+
+rss_entries.each do |entry|
+  p entry
+end
 # example: p client.post("/#{uid}/feed", message: 'kerker')
