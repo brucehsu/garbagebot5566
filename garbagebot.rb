@@ -1,6 +1,6 @@
 $LOAD_PATH << '.'
 require 'config'
-# require 'rss_utils'
+require 'rss_utils'
 require 'rest-core'
 require 'rest-more'
 
@@ -20,8 +20,18 @@ end
 
 client.access_token = FACEBOOK_ACCESS_TOKEN
 uid = client.me['id']
+post_id = nil
 
 rss_entries.each do |entry|
-  p entry
+  KEYWORDS.each do |keyword|
+    if entry.title.downcase.include? keyword.downcase
+      if post_id
+        client.post("/#{post_id}/comments", message: entry.link)
+      else
+        post_id = client.post("/#{uid}/feed", link: entry.link)['id'].split('_')[1]
+      end
+      break
+    end
+  end
 end
 # example: p client.post("/#{uid}/feed", message: 'kerker')
