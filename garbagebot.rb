@@ -22,13 +22,19 @@ end
 @client.access_token = FACEBOOK_ACCESS_TOKEN
 @uid = @client.me['id']
 @post_id = nil
+item_count = 0
 
 rss_entries.each do |entry|
   KEYWORDS.each do |keyword|
     if entry.title.downcase.include? keyword.downcase
       format_and_post entry
       puts "#{entry.title} #{entry.link}"
+      item_count+=1
       break
     end
   end
+end
+
+if item_count == 0
+  post_fallback
 end

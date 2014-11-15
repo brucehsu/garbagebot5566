@@ -17,3 +17,10 @@ end
 def hash_tags
   HASHTAGS.map { |tag| "\##{tag}"}.join ' '
 end
+
+def post_fallback
+  fallback = FALLBACKS.sample
+  @post_id = @client.post("/#{@uid}/feed", link: fallback[0], message: fallback[1])
+  puts "Facebook post id: #{@post_id}"
+  puts "Using fallback: #{p fallback}"
+end
