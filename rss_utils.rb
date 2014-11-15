@@ -7,5 +7,9 @@ def rss_entries
     rss = SimpleRSS.parse open(feed)
     entries << rss.items
   end
-  entries.flatten!
+  now = Time.now
+  entries.flatten!.map do |entry|
+    published = entry.pubDate || entry.published
+    (now - published) <= 86400 ? entry : nil
+  end.compact
 end
