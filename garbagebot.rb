@@ -19,6 +19,9 @@ if FACEBOOK_ACCESS_TOKEN.empty?
   exit
 end
 
+puts "============"
+puts "garbagebot5566 started at #{Time.now}"
+
 @client.access_token = FACEBOOK_ACCESS_TOKEN
 @uid = @client.me['id']
 @post_id = nil
