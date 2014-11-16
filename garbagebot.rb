@@ -29,9 +29,9 @@ item_count = 0
 
 rss_entries.each do |entry|
   KEYWORDS.each do |keyword|
-    if entry.title.downcase.include? keyword.downcase
+    if entry.title.downcase.match /\b#{keyword}\b/i
       format_and_post entry
-      puts "#{entry.title} #{entry.link}"
+      puts "[#{keyword}] #{entry.title} #{entry.link}"
       item_count+=1
       break
     end
