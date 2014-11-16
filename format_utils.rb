@@ -11,7 +11,7 @@ end
 def random_quote
   @quotes = IO.readlines 'dict.txt' if @quotes.nil?
   has_quote = rand(10000) % 2
-  has_quote == 1 ? @quotes[rand(@quotes.size)] : ''
+  has_quote == 1 ? @quotes.sample : ''
 end
 
 def hash_tags
